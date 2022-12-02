@@ -6,7 +6,9 @@ const routes = require("./routes/routes");
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use("/", routes);
 
 const PORT = process.env.PORT || 6000;
@@ -19,4 +21,14 @@ app.listen(PORT, () => {
     console.log(`Server started on PORT:: ${PORT}`)
 });
 
-mongoose.connect("mongodb://localhost:27017/CGPA");
+// mongoose.connect('mongodb+srv://projectversity:kadri4God222.@cluster0.gxoa4ty.mongodb.net/?retryWrites=true&w=majority')
+
+mongoose.connect('mongodb+srv://projectversity:kadri4God222.@cluster0.gxoa4ty.mongodb.net/?retryWrites=true&w=majority').then(() => {
+
+        console.log("mongodb connected online")
+    })
+    .catch((err) => {
+        console.log('errorrr')
+        console.log(err)
+
+    })
