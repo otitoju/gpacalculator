@@ -4,6 +4,7 @@ import './Signin.css'
 import Loader from '../../assets/loader'
 import {Link} from 'react-router-dom';
 import Logo from '../../assets/img/res.png';
+import { ConnectionStates } from 'mongoose';
 
 class Signin extends Component{
 
@@ -43,6 +44,8 @@ class Signin extends Component{
                    
             this.setState({isLoading:false})
             this.setState({info:res.message})
+            console.log(res)
+          console.log(res.accesstoken)
             console.log(this.state.info)
               if(res.auth == true){
                 window.localStorage.setItem('userId', res.id)

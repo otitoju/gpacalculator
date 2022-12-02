@@ -29,21 +29,16 @@ class Signup extends Component{
          
          handleSubmit=()=>{
              
-            //  let= {password,password1}= this.state
-             if(this.state.password!== this.state.password1){
-                 this.setState({info:`password not match`})
-             }
+            if(!this.state.fname || !this.state.lname||!this.state.department|| !this.state.level||!this.state.password){
 
-
-             if(this.state.info===`password not match`){
-                this.setState({isLoading: false})
+            this.setState({info:"Please fill all required field"})
+               }else if(this.state.password!== this.state.password1){
+                 this.setState({info:`password not match`,isLoading: false})
              }else{
-                this.setState({isLoading:true})
-
-             }
              
+             alert('im here')
            fetch("/register", { 
-               method:'PUt',
+               method:'POST',
                headers:{
                    'Accept':'application/json',
                    'Content-Type':'application/json'
@@ -74,6 +69,7 @@ class Signup extends Component{
 
            //console.log(this.state)
 
+         }
          }
          handleFname(e){
              this.setState({fname:e.target.value})

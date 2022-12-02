@@ -76,9 +76,30 @@ export default class Aside extends Component {
                       </p>
                     </Link>
                   </li>
-                  
-                 
-                  
+                  <li className="nav-item">
+                    <Link to="/schoolyear" className="nav-link">
+                      <img src="../asset/img/sy.png" width={30} />
+                      <p>
+                        School Year/Semester
+                      </p>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/gradeyear" className="nav-link">
+                      <img src="../asset/img/grade.png" width={30} />
+                      <p>
+                        Grade/Year Level
+                      </p>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/criteria" className="nav-link">
+                      <img src="../asset/img/criteria.png" width={30} />
+                      <p>
+                        Criteria
+                      </p>
+                    </Link>
+                  </li>
                   <li className="nav-item">
                     <Link to="course" className="nav-link">
                       <img src="../asset/img/subject.png" width={30} />
@@ -88,10 +109,10 @@ export default class Aside extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/student" className="nav-link">
+                    <Link to="student" className="nav-link">
                       <img src="../asset/img/student.png" width={30} />
                       <p>
-                        Profile
+                        Student
                       </p>
                     </Link>
                   </li>
@@ -103,25 +124,23 @@ export default class Aside extends Component {
                       </p>
                     </Link>
                   </li>
-                  
-                   <li className="nav-item">
-                    <Link to="/criteria" className="nav-link">
-                      <img src="../asset/img/criteria.png" width={30} />
-                      <p>
-                        Notification
-                      </p>
-                    </Link>
-                  </li>
-
                   <li className="nav-item">
                     <Link to="#" className="nav-link">
                       <img src="../asset/img/report.png" width={30} />
                       <p>
-                        certificate
+                        Reports
                       </p>
                       <i className="right fas fa-angle-left" />
                     </Link>
-                    
+                    <ul className="nav nav-treeview">
+                      <li className="nav-item">
+                        <Link to="scorereport" className="nav-link">
+                          <i className="nav-icon far fa-circle" />
+                          <p>Score</p>
+                        </Link>
+                      </li>
+                      
+                    </ul>
                   </li>
                 </ul>
               </nav>

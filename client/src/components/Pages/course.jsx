@@ -146,22 +146,24 @@ export default class Course extends Component {
                           </div> */}
                         </div>
                         <div className="card-footer">
-                          <button onClick={this.handleSubmit} className="btn btn-primary">Save</button>
+                          <button onClick={this.handleSubmit} className="btn btn-primary">Register</button>
                         </div>
                       </div>
                       <div className="col-md-8" style={{borderLeft: '1px solid #ddd'}}>
                         <table id="example1" className="table table-bordered table-hover">
                           <thead>
                             <tr>
+                              <th>Course title</th>
                               <th>Course Code</th>
-                              <th>Description</th>
+                              <th>Course Unit</th>
                               <th className="text-center">Action</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
                               <td>Csc-101</td>
-                              <td>Description</td>
+                              <td>Introduction to programing</td>
+                              <td>6</td>
                               <td className="text-center">
                                 <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
                                 <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
@@ -169,6 +171,7 @@ export default class Course extends Component {
                             </tr>
                             <tr>
                               <td>CSC-105</td>
+                              <td>ccccc</td>
                               <td>Description</td>
                               <td className="text-center">
                                 <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
@@ -177,6 +180,7 @@ export default class Course extends Component {
                             </tr>
                             <tr>
                               <td>CSC-103</td>
+                              <td>ggggg</td>
                               <td>Description</td>
                               <td className="text-center">
                                 <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
