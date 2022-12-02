@@ -1,6 +1,7 @@
 const Student = require("../models/Student");
 const Course = require("../models/Course");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 function GetGrade(score) {
     if(score >= 70 && score <= 100) {
@@ -308,7 +309,12 @@ class StudentController {
                         return res.json({
                             status: 200,
                             message: "AUTHORIZED",
-                            accessToken: accessToken
+                            accessToken: accessToken,
+                            userId: user._id,
+                            fname: user.fname,
+                            lname: user.lname,
+                            email: user.email,
+                            department: user.department
                         });
                     }
                 }
