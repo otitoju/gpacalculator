@@ -50,7 +50,7 @@ function GetGP(score) {
     }
 }
 
-
+const JWT_SEC = "admin63673626263636";
 class StudentController {
     static async RegisterStudent(req, res) {
         try {
@@ -257,6 +257,63 @@ class StudentController {
             }
             
             
+        } catch (error) {
+            return res.json({
+                status: 500,
+                message: "INTERNAL_SERVER_ERROR",
+                error: error.message
+            });
+        }
+    }
+
+    static async LoginStudent(req, res) {
+        try {
+            const { email, password } = req.body;
+            if(!email || !password) {
+                return res.json({
+                    status: 400,
+                    message: "NOT_ALLOWED"
+                });
+            }
+            else {
+                const user = await Student.findOne({ email: email });
+                
+                if(!user) {
+                    return res.json({
+                        status: 401,
+                        message: "UNAUTHORIZED_OR_BAD_CREDENTIALS"
+                    });
+                }
+                else {
+                    const IsCorrectPassword = bcrypt.compareSync(password, user.password);
+
+                    if(!IsCorrectPassword) {
+                        return res.json({
+                            status: 401,
+                            message: "UNAUTHORIZED_OR_BAD_CREDENTIALS"
+                        });
+                    }
+                    else {
+                        const accessToken = jwt.sign(
+                            {
+                                id: user._id,
+                                fname: user.fname,
+                                lname: user.lname,
+                                email: user.email,
+                                department: user.department
+                            },
+                            JWT_SEC,
+                            { expiresIn: "3d" }
+                        );
+                        return res.json({
+                            status: 200,
+                            message: "AUTHORIZED",
+                            accessToken: accessToken
+                        });
+                    }
+                }
+            }
+
         } catch (error) {
             return res.json({
                 status: 500,
