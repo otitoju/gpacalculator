@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../assets/style.css";
 
-import { userProfile } from "../apidata/api";
+import { getStudentRegCourse } from "../apidata/api";
 import Aside from "./aside";
 export default class Course extends Component {
   constructor() {
@@ -11,7 +11,8 @@ export default class Course extends Component {
       id: "",
       title: "",
       unit: "",
-      code:""
+      code:"",
+      courses:[]
 
     };
     this.handleUnit= this.handleUnit.bind(this)
@@ -20,20 +21,17 @@ export default class Course extends Component {
   }
 
   async componentWillMount() {
-    const user = await userProfile();
-    console.log(user.message + "  ookkkkk");
-    if (user.message === "success") {
-    
-
-      await this.setState({ title: "yiyle" });
-
-      const id = await window.localStorage.getItem("userId");
-
-      await this.setState({ id: id });
-      console.log(this.state.id);
-    } else {
-      this.props.history.push("/");
+    const id =await localStorage.getItem("userId")
+    if(id){
+      this.setState({id:id})
     }
+  }
+  async componentDidMount(){
+const course = await getStudentRegCourse()
+if(course){
+  this.setState({courses:course.student.courses})
+}
+console.log(course.student.courses)
   }
     handleTitle(e){
             this.setState({title:e.target.value})
@@ -45,8 +43,12 @@ export default class Course extends Component {
             this.setState({unit:e.target.value})
         }
 
- handleSubmit=()=>{
-             
+ handleSubmit=(e)=>{
+              e.preventDefault()
+
+               if(!this.state.unit ||!this.state.title|| !this.state.code){
+          alert('please input all filed')
+            } else{
           let  id= this.state.id
              
            fetch(`/student/course/${id}`, { 
@@ -56,30 +58,25 @@ export default class Course extends Component {
                    'Content-Type':'application/json'
                },
                body:JSON.stringify({
-                   fname:this.state.fname,
-                    lname:this.state.lname,
-                    level :this.state.level,
-                   email:this.state.email,
-                   password:this.state.password,
-                   department: this.state.department
+                   unit:this.state.unit,
+                    code:this.state.code,
+                    title :this.state.title
+                   
                })
 
            } )
            .then(res => res.json())
-           .then((res) => {console.log(res.message)
+           .then((res) => {
             this.setState({isLoading:false})
                console.log(res)
-               if(res.MESSAGE = "Created"){
-                
-                this.props.history.push('/signin')
-               }else{
-               this.setState({info:res.message})}
+               alert(res.message)
+                this.props.history.push("/course")
         })
            .catch(err =>{ console.log(err)
             this.setState({isLoading:false})
         })
 
-         
+         }
 
          }
         
@@ -152,41 +149,32 @@ export default class Course extends Component {
                       <div className="col-md-8" style={{borderLeft: '1px solid #ddd'}}>
                         <table id="example1" className="table table-bordered table-hover">
                           <thead>
-                            <tr>
+                            <tr><th>S/n</th>
                               <th>Course title</th>
                               <th>Course Code</th>
                               <th>Course Unit</th>
-                              <th className="text-center">Action</th>
+                              {/* <th className="text-center">Action</th> */}
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Csc-101</td>
-                              <td>Introduction to programing</td>
-                              <td>6</td>
-                              <td className="text-center">
+                            {this.state.courses ? this.state.courses.map((course,inde)=>{
+                              const {title,unit, code}=course
+                              return(
+                                <tr>
+                                  <td> {inde+1}</td>
+                              <td>{code}</td>
+                              <td>{title}</td>
+                              <td>{unit}</td>
+                              {/* <td className="text-center">
                                 <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
                                 <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                              </td>
+                              </td> */}
                             </tr>
-                            <tr>
-                              <td>CSC-105</td>
-                              <td>ccccc</td>
-                              <td>Description</td>
-                              <td className="text-center">
-                                <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
-                                <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>CSC-103</td>
-                              <td>ggggg</td>
-                              <td>Description</td>
-                              <td className="text-center">
-                                <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
-                                <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                              </td>
-                            </tr>
+                              )
+
+                            }):null}
+                            
+
                           </tbody>
                         </table>
                       </div>

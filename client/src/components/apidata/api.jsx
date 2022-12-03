@@ -49,15 +49,23 @@ export async function getOneUserA(id) {
 
 export async function userProfile() {
 
-    const token = await JSON.parse(localStorage.getItem('token'))
+    // const token = await JSON.parse(localStorage.getItem('token'))
 
-    // const id = JSON.parse(localStorage.getItem('userId'))
+    const id = localStorage.getItem('userId')
 
     //console.log(id)
     
-  const profile= await axios.get('/userprofile', { headers:{"Authorization": token}
-})
+  const profile= await axios.get(`/student/${id}`)
   return profile.data
 
 }
     
+export async function getStudentRegCourse() {
+    try {
+         const id = localStorage.getItem('userId')
+       const centers = await axios.get(`/student/${id}`)
+       return centers.data
+        
+    } catch (error) {
+        return error.message
+    }}

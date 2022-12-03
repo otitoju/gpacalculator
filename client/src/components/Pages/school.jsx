@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../assets/style.css";
 
-import { userProfile } from "../apidata/api";
+
 import Aside from "./aside";
 export default class SchoolYear extends Component {
   constructor() {
@@ -14,22 +14,8 @@ export default class SchoolYear extends Component {
     };
   }
 
-  async componentWillMount() {
-    const user = await userProfile();
-    console.log(user.message + "  ookkkkk");
-    if (user.message === "success") {
-      // if(user.user==)
 
-      await this.setState({ name: user.name.toLowerCase(),userAvater:user.avater });
-
-      const id = await window.localStorage.getItem("userId");
-
-      await this.setState({ id: id });
-      console.log(this.state.id);
-    } else {
-      this.props.history.push("/");
-    }
-  }
+    
   render() {
     const { id, name, userAvater } = this.state;
     const ImagesSTyle={

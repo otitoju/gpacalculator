@@ -70,7 +70,11 @@ class AuthController {
                         return res.json({
                             status: 200,
                             message: "AUTHORIZED",
-                            accessToken: accessToken
+                            accessToken: accessToken,
+                            id: user._id,
+                                isAdmin: user.isAdmin,
+                                auth:true
+                            
                         });
                     }
                 }

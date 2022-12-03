@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../assets/style.css";
 
-import { userProfile } from "../apidata/api";
 export default class Aside extends Component {
   constructor() {
     super();
@@ -13,22 +12,6 @@ export default class Aside extends Component {
     };
   }
 
-  async componentWillMount() {
-    const user = await userProfile();
-    console.log(user.message + "  ookkkkk");
-    if (user.message === "success") {
-      // if(user.user==)
-
-      await this.setState({ name: user.name.toLowerCase(),userAvater:user.avater });
-
-      const id = await window.localStorage.getItem("userId");
-
-      await this.setState({ id: id });
-      console.log(this.state.id);
-    } else {
-      this.props.history.push("/");
-    }
-  }
   render() {
     
 
@@ -88,7 +71,7 @@ export default class Aside extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/student" className="nav-link">
+                    <Link to="/profile" className="nav-link">
                       <img src="../asset/img/student.png" width={30} />
                       <p>
                         Profile
@@ -103,7 +86,7 @@ export default class Aside extends Component {
                       </p>
                     </Link>
                   </li>
-                  
+
                    <li className="nav-item">
                     <Link to="/criteria" className="nav-link">
                       <img src="../asset/img/criteria.png" width={30} />

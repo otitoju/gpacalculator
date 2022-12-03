@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../assets/style.css";
 
-import { userProfile } from "../apidata/api";
+import { userProfile ,getStudentRegCourse} from "../apidata/api";
 import Aside from "./aside";
 export default class Score extends Component {
   constructor() {
@@ -10,25 +10,15 @@ export default class Score extends Component {
     this.state = {
       id: "",
       name: "",
-      userAvater:''
+      courses:[]
     };
   }
 
   async componentWillMount() {
-    const user = await userProfile();
-    console.log(user.message + "  ookkkkk");
-    if (user.message === "success") {
-    
-
-      await this.setState({ name: user.name.toLowerCase(),userAvater:user.avater });
-
-      const id = await window.localStorage.getItem("userId");
-
-      await this.setState({ id: id });
-      console.log(this.state.id);
-    } else {
-      this.props.history.push("/");
-    }
+    const course = await getStudentRegCourse()
+if(course){
+  this.setState({courses:course.student.courses})
+}
   }
   render() {
     const { id, name, userAvater } = this.state;
@@ -70,49 +60,32 @@ export default class Score extends Component {
                   <table id="example1" className="table table-hover">
                     <thead>
                       <tr>
-                        <th>Student Name</th>
-                        <th>School Year</th>
-                        <th>Subject</th>
-                        <th>Criteria</th>
-                        <th>Score</th>
-                        <th className="text-center">Action</th>
+                        <th>Course Code</th>
+                        <th>Course title</th>
+                        <th>Course Unit </th>
+                        <th>Course score</th>
+                        <th>Grade</th>
+                        
                       </tr>
                     </thead>
+                  
+                    {this.state.courses ? this.state.courses.map((course,inde)=>{
+                              const {title,unit, code,grade,score}=course
+                              return(
                     <tbody>
                       <tr>
-                        <td>Juan Dela Cruz</td>
-                        <td>2021-1</td>
-                        <td>SUBJCT-1</td>
-                        <td>Criteria-1</td>
-                        <td>90</td>
-                        <td className="text-center">
-                          <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
-                          <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                        </td>
+                        <td>{code}</td>
+                        <td>{title}</td>
+                        <td>{unit}</td>
+                        <td>{score==null ? "pending":score}</td>
+                        <td>{grade? null :'pending'}</td>
+                        
                       </tr>
-                      <tr>
-                        <td>John Doe</td>
-                        <td>2021-1</td>
-                        <td>SUBJCT-1</td>
-                        <td>Criteria-1</td>
-                        <td>80</td>
-                        <td className="text-center">
-                          <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
-                          <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Juan Luna</td>
-                        <td>2021-1</td>
-                        <td>SUBJCT-1</td>
-                        <td>Criteria-1</td>
-                        <td>95</td>
-                        <td className="text-center">
-                          <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-edit" /> update</a>
-                          <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                        </td>
-                      </tr>
+                     
                     </tbody>
+                    ) 
+
+                            }):null}
                   </table>
                 </div>
               </div>

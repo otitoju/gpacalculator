@@ -15,20 +15,7 @@ export default class ScoreReport extends Component {
   }
 
   async componentWillMount() {
-    const user = await userProfile();
-    console.log(user.message + "  ookkkkk");
-    if (user.message === "success") {
     
-
-      await this.setState({ name: user.name.toLowerCase(),userAvater:user.avater });
-
-      const id = await window.localStorage.getItem("userId");
-
-      await this.setState({ id: id });
-      console.log(this.state.id);
-    } else {
-      this.props.history.push("/");
-    }
   }
   render() {
     const { id, name, userAvater } = this.state;

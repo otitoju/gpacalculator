@@ -4,8 +4,8 @@ import "../assets/style.css";
 import {getStudentRegCourse} from "../apidata/api";
 
 
-import Aside from "./aside";
-export default class dashboard extends Component {
+import Asidel from "./asideLecturer";
+export default class Ldashboard extends Component {
   constructor() {
     super();
     this.state = {
@@ -56,7 +56,7 @@ if(course){
 
 
          <div className="wrapper">
-        <Aside/>        <div className="content-wrapper">
+        <Asidel/>        <div className="content-wrapper">
           <div className="content-header">
             <div className="container-fluid">
               <div className="row mb-2">
@@ -81,7 +81,7 @@ if(course){
                     <span className="info-box-icon text-success elevation-4"><img src="../asset/img/student.png" width={50} /></span>
                     <div className="info-box-content">
                       <span className="info-box-text">
-                        <h5>Student Chain</h5>
+                        <h5>admin Chain</h5>
                       </span>
                       <span className="info-box-number">
                         <h2></h2>

@@ -4,9 +4,9 @@ import './Signin.css'
 import Loader from '../../assets/loader'
 import {Link} from 'react-router-dom';
 import Logo from '../../assets/img/res.png';
-import { ConnectionStates } from 'mongoose';
 
-class Signin extends Component{
+
+class LecturerLogin extends Component{
 
   constructor(){
     super()
@@ -28,7 +28,7 @@ class Signin extends Component{
            this.setState({info:"put both your email and password"})
             }else{
             this.setState({isLoading:true})
-            fetch("/login", { 
+            fetch("/signin", { 
                 method:'POST',
                 headers:{
                     'Accept':'application/json',
@@ -50,16 +50,16 @@ class Signin extends Component{
             console.log(res)
          
               if(res.auth == true &&res.status==200){
-                window.localStorage.setItem('userId', res.userId)
-                window.localStorage.setItem('fname', res.fname)
-                window.localStorage.setItem('lname', res.lname)
+                window.localStorage.setItem('aId', res.id)
+                window.localStorage.setItem('name', res.name)
+              
 
 
-            window.localStorage.setItem('token', JSON.stringify(res.token)) 
+           
           
                 console.log(res.accessToken)
             
-                this.props.history.push("/dashboard")
+                this.props.history.push("/ldashboard")
               }
               
             } )
@@ -135,7 +135,7 @@ render(){
 
     {/* <!-- Register --> */}
     <p>Not a member?
-      <Link to="/signup"> Register</Link>
+      <Link to="/lsignup"> Register</Link>
     </p>
 
     {/* <!-- Social login --> */}
@@ -186,4 +186,4 @@ render(){
 }
 
 
-export default Signin
+export default LecturerLogin

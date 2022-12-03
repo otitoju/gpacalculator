@@ -310,6 +310,7 @@ class StudentController {
                             status: 200,
                             message: "AUTHORIZED",
                             accessToken: accessToken,
+                            auth:true,
                             userId: user._id,
                             fname: user.fname,
                             lname: user.lname,

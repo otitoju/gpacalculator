@@ -9,16 +9,26 @@ export default class Student extends Component {
     super();
     this.state = {
       id: "",
-      name: "",
-      userAvater:''
+      email: "",
+      userAvater:'',
+      fname:'',
+      lname:'',
+      level:'',
+      department:'',
+
     };
   }
 
   async componentWillMount() {
+    const student = await userProfile()
+    console.log(student)
+    if(student){
+        this.setState({fname: student.student.fname, lname:student.student.lname, department:student.student.department, level:student.student.level, email:student.student.email})
+    }
     
   }
   render() {
-    const { id, name, userAvater } = this.state;
+    const { id, fname, lname, level, department ,email} = this.state;
     const ImagesSTyle={
       width:'90%',
       height:'150px',
@@ -36,7 +46,7 @@ export default class Student extends Component {
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col-sm-6">
-                  <h1 className="m-0"><img src="../asset/img/student.png" width={40} /> Student List</h1>
+                  <h1 className="m-0"><img src="../asset/img/student.png" width={40} /> Student data</h1>
                 </div>
                 <div className="col-sm-6">
                   <ol className="breadcrumb float-sm-right">
@@ -44,8 +54,8 @@ export default class Student extends Component {
                     <li className="breadcrumb-item active">Students</li>
                   </ol>
                 </div><br />
-                <a className="btn btn-sm btn-info elevation-4" href="#" data-toggle="modal" data-target="#add" style={{marginLeft: '7px'}}><i className="fa fa-plus-square" />
-                  Add New</a>
+                {/* <a className="btn btn-sm btn-info elevation-4" href="#" data-toggle="modal" data-target="#add" style={{marginLeft: '7px'}}><i className="fa fa-plus-square" />
+                  Add New</a> */}
               </div>
             </div>
           </div>
@@ -58,55 +68,29 @@ export default class Student extends Component {
                     <thead className="btn-cancel">
                       <tr>
                         <th>Profile</th>
-                        <th>Full Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Contact</th>
+                        <th>First Name</th>
+                       <th>Last Name</th>
                         <th>Email</th>
-                        <th>Address</th>
+                        <th>Department</th>
+                        <th>Level</th>
                         <th className="text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td><img src="../asset/img/profile.png" width={40} /></td>
-                        <td>Ola muhamed</td>
-                        <td>24</td>
-                        <td>Male</td>
-                        <td>09876543232</td>
-                        <td>olawale@gmail.com</td>
-                        <td>Adankolo,Lokoja</td>
+                        <td>{fname}</td>
+                        <td>{lname}</td>
+                        <td>{email}</td>
+                        <td>{department}</td>
+                        <td>{level}</td>
+                       
                         <td className="text-center">
                           <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-user-edit" /> update</a>
                           <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
                         </td>
                       </tr>
-                      <tr>
-                        <td><img src="../asset/img/profile.png" width={40} /></td>
-                        <td>William Smith</td>
-                        <td>24</td>
-                        <td>Male</td>
-                        <td>09876543232</td>
-                        <td>wilieam@gmail.com</td>
-                        <td>lokoja</td>
-                        <td className="text-center">
-                          <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-user-edit" /> update</a>
-                          <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><img src="../asset/img/profile.png" width={40} /></td>
-                        <td>James Bond</td>
-                        <td>27</td>
-                        <td>Male</td>
-                        <td>09876543232</td>
-                        <td>emal@gmail.com</td>
-                        <td>lokoja</td>
-                        <td className="text-center">
-                          <a className="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#edit"><i className="fa fa-user-edit" /> update</a>
-                          <a className="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i className="fa fa-trash-alt" /> delete</a>
-                        </td>
-                      </tr>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -137,7 +121,7 @@ export default class Student extends Component {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="card-header">
-                          <h5><img src="../asset/img/member.png" width={40} /> Member Information</h5>
+                          <h5><img src="../asset/img/member.png" width={40} /> Student Information</h5>
                         </div>
                         <div className="row">
                           <div className="col-md-4">
@@ -146,37 +130,25 @@ export default class Student extends Component {
                               <input type="text" className="form-control" placeholder="First Name" />
                             </div>
                           </div>
-                          <div className="col-md-4">
+                         
+                          
+                                                    <div className="col-md-3">
                             <div className="form-group">
-                              <label className="float-left">Middle Name</label>
-                              <input type="text" className="form-control" placeholder="Middle Name" />
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <label className="float-left">Last Name</label>
-                              <input type="text" className="form-control" placeholder="Last Name" />
-                            </div>
-                          </div>
-                          <div className="col-md-3">
-                            <div className="form-group">
-                              <label className="float-left">Age</label>
-                              <input type="text" className="form-control" placeholder="Age" />
-                            </div>
-                          </div>
-                          <div className="col-md-3">
-                            <div className="form-group">
-                              <label className="float-left">Gender</label>
+                              <label className="float-left">Level</label>
                               <select className="form-control">
-                                <option>Male</option>
-                                <option>Female</option>
+                                <option>100l</option>
+                                <option>200l</option>
+                                <option>300l</option>
+                                <option>400l</option>
+
+                                
                               </select>
                             </div>
                           </div>
                           <div className="col-md-3">
                             <div className="form-group">
-                              <label className="float-left">Contact</label>
-                              <input type="text" className="form-control" placeholder="Contact" />
+                              <label className="float-left">Department</label>
+                              <input type="text" className="form-control" placeholder="Department" />
                             </div>
                           </div>
                           <div className="col-md-3">
