@@ -2,6 +2,7 @@ const Student = require("../models/Student");
 const Course = require("../models/Course");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 function GetGrade(score) {
     if(score >= 70 && score <= 100) {
@@ -303,7 +304,7 @@ class StudentController {
                                 email: user.email,
                                 department: user.department
                             },
-                            JWT_SEC,
+                            config.userSecret,
                             { expiresIn: "3d" }
                         );
                         return res.json({
