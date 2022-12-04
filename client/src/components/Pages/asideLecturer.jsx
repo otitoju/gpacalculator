@@ -9,52 +9,60 @@ export default class Aside extends Component {
     this.state = {
       id: "",
       name: "",
-      userAvater:''
+      userAvater: "",
     };
   }
 
-  async componentWillMount() {
-    const user = await userProfile();
-    console.log(user.message + "  ookkkkk");
-    if (user.message === "success") {
-      // if(user.user==)
-
-      await this.setState({ name: user.name.toLowerCase(),userAvater:user.avater });
-
-      const id = await window.localStorage.getItem("userId");
-
-      await this.setState({ id: id });
-      console.log(this.state.id);
-    } else {
-      this.props.history.push("/");
-    }
-  }
+  async componentWillMount() {}
   render() {
-    
-
     return (
       <div>
- <div className="wrapper">
-          <nav className="main-header navbar navbar-expand navbar-light" style={{backgroundColor: 'rgb(27,100,107)'}}>
+        <div className="wrapper">
+          <nav
+            className="main-header navbar navbar-expand navbar-light"
+            style={{ backgroundColor: "rgb(27,100,107)" }}
+          >
             {/* Left navbar links */}
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" data-widget="pushmenu" href="#" role="button"><i className="fas fa-bars" /></a>
+                <a
+                  className="nav-link"
+                  data-widget="pushmenu"
+                  href="#"
+                  role="button"
+                >
+                  <i className="fas fa-bars" />
+                </a>
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a className="nav-link" href="#" role="button">
-                  <img src="../asset/img/avatar.png" className="img-circle" alt="User Image" style={{marginTop: '-8px'}} width={40} />
+                  <img
+                    src="../asset/img/avatar.png"
+                    className="img-circle"
+                    alt="User Image"
+                    style={{ marginTop: "-8px" }}
+                    width={40}
+                  />
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" data-widget="fullscreen" href="#" role="button">
+                <a
+                  className="nav-link"
+                  data-widget="fullscreen"
+                  href="#"
+                  role="button"
+                >
                   <i className="fas fa-expand-arrows-alt" />
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" data-widget="fullscreen" href="../index.html">
+                <a
+                  className="nav-link"
+                  data-widget="fullscreen"
+                  href="../index.html"
+                >
                   <i className="fas fa-sign-out-alt" />
                 </a>
               </li>
@@ -67,89 +75,55 @@ export default class Aside extends Component {
             </a>
             <div className="sidebar">
               <nav className="mt-2">
-                <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul
+                  className="nav nav-pills nav-sidebar flex-column"
+                  data-widget="treeview"
+                  role="menu"
+                  data-accordion="false"
+                >
                   <li className="nav-item">
-                    <Link to="/dashboard" className="nav-link">
+                    <Link to="/ldashboard" className="nav-link">
                       <img src="../asset/img/dashboard.png" width={30} />
-                      <p>
-                        Dashboard
-                      </p>
+                      <p>Dashboard</p>
                     </Link>
                   </li>
+
                   <li className="nav-item">
-                    <Link to="/schoolyear" className="nav-link">
-                      <img src="../asset/img/sy.png" width={30} />
-                      <p>
-                        School Year/Semester
-                      </p>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/gradeyear" className="nav-link">
-                      <img src="../asset/img/grade.png" width={30} />
-                      <p>
-                        Grade/Year Level
-                      </p>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/criteria" className="nav-link">
+                    <Link to="#" className="nav-link">
                       <img src="../asset/img/criteria.png" width={30} />
-                      <p>
-                        Criteria
-                      </p>
+                      <p>notification</p>
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="course" className="nav-link">
+                    <Link to="lcourse" className="nav-link">
                       <img src="../asset/img/subject.png" width={30} />
-                      <p>
-                        Courses
-                      </p>
+                      <p>Courses</p>
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link to="student" className="nav-link">
                       <img src="../asset/img/student.png" width={30} />
-                      <p>
-                        Student
-                      </p>
+                      <p>Student</p>
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="score" className="nav-link">
+                    <Link to="#" className="nav-link">
                       <img src="../asset/img/score.png" width={30} />
-                      <p>
-                        Score
-                      </p>
+                      <p>Score</p>
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link to="#" className="nav-link">
                       <img src="../asset/img/report.png" width={30} />
-                      <p>
-                        Reports
-                      </p>
+                      <p>Reports</p>
                       <i className="right fas fa-angle-left" />
                     </Link>
-                    <ul className="nav nav-treeview">
-                      <li className="nav-item">
-                        <Link to="scorereport" className="nav-link">
-                          <i className="nav-icon far fa-circle" />
-                          <p>Score</p>
-                        </Link>
-                      </li>
-                      
-                    </ul>
                   </li>
                 </ul>
               </nav>
             </div>
           </aside>
-
         </div>
-        
-
       </div>
     );
   }

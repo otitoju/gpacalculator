@@ -22,6 +22,8 @@ import ScoreReport from './components/Pages/ScoreReport';
 import StudentProfile from './components/Pages/StudentProfile'
 import LecturerLogin from './components/Pages/Signin/LecturerLogin';
 import LectureRegister from './components/Pages/Signup/LecturerRegister';
+import SingleCourse from './components/Pages/singleCourses'
+import AddScore from './components/Pages/addScore'
 class Router extends Component{
 
 
@@ -50,7 +52,20 @@ class Router extends Component{
           LectureRegister
       }
       />  
-      <Route path="/addproject" strict exact={true} component={Addproject}/>  
+
+      <Route path="/student/:id" strict exact={true} component={SingleCourse}/>
+      {/* < Route path = "/student/:id"
+      strict exact = {
+          true
+      }
+      component = {
+          SingleCourse
+      }
+      /> */}
+
+
+
+      <Route path="/student/:id/:cid" strict exact={true} component={AddScore}/>  
       <Route path="/projects" strict exact={true} component={Allprojects}/>
       <Route path="/projectD/:id" strict exact={true} component={ProjectD}/>
       <Route path="/userprofile" strict exact={true} component={UserProfile}/>
