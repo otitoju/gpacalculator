@@ -286,16 +286,16 @@ export default class Score extends Component {
                                   </div>
                                   <ul className="list-group">
                                     <li className="list-group-item">
-                                      CGPA: {this.state.gpa.CGPA}
+                                      CGPA: {this.state.gpa.CGPA == null ? 'Pending CGPA' : this.state.gpa.CGPA}
                                     </li>
                                     <li className="list-group-item">
-                                      GPA: {this.state.gpa.GPA}
+                                      GPA: {this.state.gpa.GPA == null ? 'Pendng GPA' : this.state.gpa.GPA}
                                     </li>
                                     <li className="list-group-item">
-                                      QP: {this.state.gpa.QP}
+                                      QP: {this.state.gpa.QP == null ? 'Pending QP' : this.state.gpa.QP}
                                     </li>
                                     <li className="list-group-item">
-                                      totalScore:: {this.state.gpa.totalScore}
+                                      totalScore:: {this.state.gpa.totalScore == null ? 'Pending Total Score' : this.state.gpa.totalScore }
                                     </li>
                                   </ul>
                                 </div>

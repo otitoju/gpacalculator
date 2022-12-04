@@ -67,6 +67,9 @@ export default class Course extends Component {
           this.setState({ isLoading: false });
           console.log(res);
           alert(res.message);
+          this.state.title = ''
+          this.state.code = ''
+          this.state.unit = ''
           this.props.history.push("/course");
         })
         .catch((err) => {
@@ -195,11 +198,11 @@ export default class Course extends Component {
                               </thead>
                               <tbody>
                                 {this.state.courses
-                                  ? this.state.courses.map((course, inde) => {
+                                  ? this.state.courses.map((course, index) => {
                                       const { title, unit, code } = course;
                                       return (
                                         <tr>
-                                          <td> {inde + 1}</td>
+                                          <td> {index + 1}</td>
                                           <td>{code}</td>
                                           <td>{title}</td>
                                           <td>{unit}</td>

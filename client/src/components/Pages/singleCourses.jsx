@@ -136,13 +136,15 @@ export default class Student extends Component {
                               <th>Course Code</th>
                               <th>Course Unit</th>
                               <th>Coures ID</th>
+                              <th>Score</th>
+                              <th>Grade</th>
                               <th className="text-center">Action</th>
                             </tr>
                           </thead>
                           <tbody>
                             {this.state.courses
                               ? this.state.courses.map((course, inde) => {
-                                  const { title, unit, code, _id } = course;
+                                  const { title, unit, code, _id, score, grade } = course;
                                   return (
                                     <tr>
                                       <td> {inde + 1}</td>
@@ -150,7 +152,8 @@ export default class Student extends Component {
                                       <td>{title}</td>
                                       <td>{unit}</td>
                                       <td>{_id}</td>
-
+                                      <td>{score == null ? "pending" : score}</td>
+                                      <td>{grade == null ? "pending" : grade}</td>
                                       <td className="text-center">
                                         <Link
                                           to={`/student/${stId}/${_id}`}

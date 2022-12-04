@@ -29,16 +29,16 @@ class Signup extends Component {
   handleSubmit = () => {
     if (
       !this.state.fname ||
-      this.state.lname ||
-      this.state.department ||
-      this.state.level ||
+      !this.state.lname ||
+      !this.state.department ||
+      !this.state.level ||
       this.state.password == ""
     ) {
       this.setState({ info: "Please fill all required field" });
     } else if (this.state.password !== this.state.password1) {
       this.setState({ info: `password not match`, isLoading: false });
     } else {
-      alert("im here");
+      // alert("im here");
       fetch("/register", {
         method: "POST",
         headers: {
@@ -60,6 +60,7 @@ class Signup extends Component {
           this.setState({ isLoading: false });
           console.log(res);
           if (res.MESSAGE == "Created") {
+            alert('Registered successfully')
             this.props.history.push("/signin");
           } else {
             this.setState({ info: res.message });

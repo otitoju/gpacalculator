@@ -132,7 +132,7 @@ export default class Student extends Component {
                           </div>
                          
                           
-                                                    <div className="col-md-3">
+                          <div className="col-md-3">
                             <div className="form-group">
                               <label className="float-left">Level</label>
                               <select className="form-control">
@@ -140,8 +140,6 @@ export default class Student extends Component {
                                 <option>200l</option>
                                 <option>300l</option>
                                 <option>400l</option>
-
-                                
                               </select>
                             </div>
                           </div>

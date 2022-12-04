@@ -37,9 +37,9 @@ export default class Aside extends Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" data-widget="fullscreen" href="../index.html">
+                <Link className="nav-link" data-widget="fullscreen" to="/">
                   <i className="fas fa-sign-out-alt" />
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -97,12 +97,12 @@ export default class Aside extends Component {
                   </li>
 
                   <li className="nav-item">
-                    <Link to="#" className="nav-link">
-                      <img src="../asset/img/report.png" width={30} />
+                    <Link to="/" className="nav-link">
+                    <i className="fas fa-sign-out-alt" />
                       <p>
-                        certificate
+                        Log out
                       </p>
-                      <i className="right fas fa-angle-left" />
+                      {/* <i className="fas fa-sign-out-alt" /> */}
                     </Link>
                     
                   </li>
