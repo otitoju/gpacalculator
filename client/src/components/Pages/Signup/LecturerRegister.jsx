@@ -3,55 +3,48 @@ import { Link } from "react-router-dom";
 import "./Signup.css";
 import Logo from "../../assets/img/res.png";
 
-class Signup extends Component {
+class LectureRegister extends Component {
   constructor() {
     super();
     this.state = {
-      fname: "",
-      lname: "",
+      name: "",
       email: "",
       password: "",
       level: "",
       password1: "",
       info: "",
       isLoading: false,
-      department: "",
     };
     this.handleEmail = this.handleEmail.bind(this);
-    this.handleFname = this.handleFname.bind(this);
-    this.handleLname = this.handleLname.bind(this);
+
+    this.handleName = this.handleName.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.handleGender = this.handleGender.bind(this);
-    this.handleDepart = this.handleDepart.bind(this);
+
     this.handlePassword1 = this.handlePassword1.bind(this);
   }
 
   handleSubmit = () => {
-    if (
-      !this.state.fname ||
-      !this.state.lname ||
-      !this.state.department ||
-      !this.state.level ||
-      this.state.password == ""
-    ) {
-      this.setState({ info: "Please fill all required field" });
+    this.setState({ isLoading: true });
+    if (!this.state.name || !this.state.email || !this.state.password) {
+      this.setState({
+        info: "Please fill all required field",
+        isLoading: false,
+      });
     } else if (this.state.password !== this.state.password1) {
       this.setState({ info: `password not match`, isLoading: false });
     } else {
-      // alert("im here");
-      fetch("/register", {
+      alert("im heer");
+      fetch("/signup", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          fname: this.state.fname,
-          lname: this.state.lname,
-          level: this.state.level,
+          name: this.state.name,
+
           email: this.state.email,
           password: this.state.password,
-          department: this.state.department,
         }),
       })
         .then((res) => res.json())
@@ -59,9 +52,8 @@ class Signup extends Component {
           console.log(res.message);
           this.setState({ isLoading: false });
           console.log(res);
-          if (res.MESSAGE == "Created") {
-            alert('Registered successfully')
-            this.props.history.push("/signin");
+          if ((res.MESSAGE = "Created" && res.status == 201)) {
+            this.props.history.push("/lsignin");
           } else {
             this.setState({ info: res.message });
           }
@@ -74,11 +66,9 @@ class Signup extends Component {
       //console.log(this.state)
     }
   };
-  handleFname(e) {
-    this.setState({ fname: e.target.value });
-  }
-  handleLname(e) {
-    this.setState({ lname: e.target.value });
+
+  handleName(e) {
+    this.setState({ name: e.target.value });
   }
   handleEmail(e) {
     this.setState({ email: e.target.value });
@@ -88,13 +78,6 @@ class Signup extends Component {
   }
   handlePassword1(e) {
     this.setState({ password1: e.target.value });
-  }
-
-  handleGender(e) {
-    this.setState({ level: e.target.value });
-  }
-  handleDepart(e) {
-    this.setState({ department: e.target.value });
   }
 
   render() {
@@ -117,9 +100,9 @@ class Signup extends Component {
                   <img src={Logo} alt=" Logo" width="120" />
                 </a>
               </h3>
+              <p>Lecturer</p>
             </div>
 
-            {/* <!--Body--> */}
             <div className="md-form mt-4">
               {/* <i className="fa fa-user prefix"></i> */}
               <input
@@ -127,25 +110,11 @@ class Signup extends Component {
                 id="form3"
                 required="required"
                 className="form-control"
-                value={this.state.fname}
-                onChange={this.handleFname}
+                value={this.state.name}
+                onChange={this.handleName}
               />
               <label for="form3">
-                <span className="fa fa-user"></span> First Name
-              </label>
-            </div>
-            <div className="md-form mt-4">
-              {/* <i className="fa fa-user prefix"></i> */}
-              <input
-                type="text"
-                id="form3"
-                required="required"
-                className="form-control"
-                value={this.state.lname}
-                onChange={this.handleLname}
-              />
-              <label for="form3">
-                <span className="fa fa-user"></span>Last Name
+                <span className="fa fa-user"></span> Name
               </label>
             </div>
             <div className="md-form">
@@ -160,33 +129,6 @@ class Signup extends Component {
               <label for="form2">
                 <span className="fa fa-envelope"></span> Email
               </label>
-            </div>
-            <div className="md-form">
-              {/* <i className="fa fa-envelope prefix"></i> */}
-              <input
-                type="text"
-                id="form2"
-                className="form-control"
-                value={this.state.department}
-                onChange={this.handleDepart}
-              />
-              <label for="form2">
-                <span className="fa fa-envelope"></span> Department
-              </label>
-            </div>
-
-            <div class="md-form">
-              <select
-                className="form-control"
-                value={this.state.level}
-                onChange={this.handleGender}
-              >
-                <option>--Select level--</option>
-                <option>100L</option>
-                <option>200L</option>
-                <option>300L</option>
-                <option>400L</option>
-              </select>
             </div>
 
             <div className="md-form">
@@ -255,7 +197,7 @@ class Signup extends Component {
             <p className="pt-3 text-right">
               {" "}
               Aready a member
-              <Link to="/signin"> Login</Link>
+              <Link to="/lsignin"> Login</Link>
             </p>
           </div>
         </div>
@@ -264,4 +206,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default LectureRegister;

@@ -9,6 +9,7 @@ import ProjectD from './components/Pages/projectDetails/projectD'
 import UserProfile from './components/Pages/user/userProfile'
 import UploadDoc from'./components/Pages/Addproject/UploadDoc'
 import Dashboard from './components/Pages/dashboard'
+import LDashboard from './components/Pages/Ldashboard';
 import UpdateProfile from './components/Pages/user/updateProfile'
 
 import SchoolYear from './components/Pages/school';
@@ -18,6 +19,11 @@ import Course from './components/Pages/course';
 import Student from './components/Pages/Student';
 import Score from './components/Pages/Score';
 import ScoreReport from './components/Pages/ScoreReport';
+import StudentProfile from './components/Pages/StudentProfile'
+import LecturerLogin from './components/Pages/Signin/LecturerLogin';
+import LectureRegister from './components/Pages/Signup/LecturerRegister';
+import SingleCourse from './components/Pages/singleCourses'
+import AddScore from './components/Pages/addScore'
 class Router extends Component{
 
 
@@ -31,7 +37,35 @@ class Router extends Component{
        < Route path="/"  strict exact={true} component={LandingPage}/>
       <Route path="/signin" strict exact={true} component={Signin}/>
       <Route path="/signup" strict exact={true}  component={Signup}/>  
-      <Route path="/addproject" strict exact={true} component={Addproject}/>  
+      <Route path = "/lsignin"
+      strict exact = {
+          true
+      }
+      component = {
+          LecturerLogin}
+      /> 
+      <Route path = "/lsignup"
+      strict exact = {
+          true
+      }
+      component = {
+          LectureRegister
+      }
+      />  
+
+      <Route path="/student/:id" strict exact={true} component={SingleCourse}/>
+      {/* < Route path = "/student/:id"
+      strict exact = {
+          true
+      }
+      component = {
+          SingleCourse
+      }
+      /> */}
+
+
+
+      <Route path="/student/:id/:cid" strict exact={true} component={AddScore}/>  
       <Route path="/projects" strict exact={true} component={Allprojects}/>
       <Route path="/projectD/:id" strict exact={true} component={ProjectD}/>
       <Route path="/userprofile" strict exact={true} component={UserProfile}/>
@@ -40,8 +74,9 @@ class Router extends Component{
       />
       <Route path="/dashboard" strict exact={true} component={Dashboard}
       />
-       <Route path="/dashboard" strict exact={true} component={Dashboard}
-      /> <Route path="/schoolyear" strict exact={true} component={SchoolYear}
+       <Route path="/ldashboard" strict exact={true} component={LDashboard}
+      /> 
+      <Route path="/schoolyear" strict exact={true} component={SchoolYear}
       />
       <Route path="/gradeyear" strict exact={true} component={GradeYear}
       />
@@ -50,7 +85,17 @@ class Router extends Component{
       <Route path="/course" strict exact={true} component={Course}
       />
         <Route path="/student" strict exact={true} component={Student}
+        
       />
+        <Route path = "/profile"
+        strict exact = {
+            true
+        }
+        component = {
+            StudentProfile
+        }
+
+        />
        <Route path="/score" strict exact={true} component={Score}
       />
       <Route path="/scorereport" strict exact={true} component={ScoreReport}

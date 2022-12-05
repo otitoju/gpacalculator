@@ -4,6 +4,7 @@ import './Signin.css'
 import Loader from '../../assets/loader'
 import {Link} from 'react-router-dom';
 import Logo from '../../assets/img/res.png';
+import { ConnectionStates } from 'mongoose';
 
 class Signin extends Component{
 
@@ -23,6 +24,9 @@ class Signin extends Component{
           
           handleSubmit=(e)=>{
             e.preventDefault()
+            if(!this.state.email ||!this.state.password){
+           this.setState({info:"put both your email and password"})
+            }else{
             this.setState({isLoading:true})
             fetch("/login", { 
                 method:'POST',
@@ -43,12 +47,17 @@ class Signin extends Component{
                    
             this.setState({isLoading:false})
             this.setState({info:res.message})
-            console.log(this.state.info)
-              if(res.auth == true){
-                window.localStorage.setItem('userId', res.id)
+            console.log(res)
+         
+              if(res.auth == true &&res.status==200){
+                window.localStorage.setItem('userId', res.userId)
+                window.localStorage.setItem('fname', res.fname)
+                window.localStorage.setItem('lname', res.lname)
+
+
             window.localStorage.setItem('token', JSON.stringify(res.token)) 
           
-                console.log(res.token)
+                console.log(res.accessToken)
             
                 this.props.history.push("/dashboard")
               }
@@ -57,7 +66,7 @@ class Signin extends Component{
             .catch(err => {console.log(err)
               this.setState({isLoading:false})
             })
- 
+ }
             //console.log(this.state)
  
           }

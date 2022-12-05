@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../assets/style.css";
 
-import { userProfile, getAllStudents } from "../apidata/api";
+import {
+  userProfile,
+  getAllStudents,
+  getStudentRegCourseL,
+} from "../apidata/api";
 import Asidel from "./asideLecturer";
 export default class Student extends Component {
   constructor() {
@@ -10,20 +14,71 @@ export default class Student extends Component {
     this.state = {
       id: "",
       name: "",
-      students: [],
+      courses: [],
+      stId: "",
     };
   }
 
   async componentWillMount() {
-    const students = await getAllStudents();
-    if (students) {
-      this.setState({ students: students.students });
+    const course = await getStudentRegCourseL(this.props.match.params.id);
+    console.log("GOO" + course);
+    if (course) {
+      this.setState({ courses: course.student.courses });
     }
-    console.log(students);
-    console.log("sssssss");
   }
+  async componentDidMount() {
+    const studentid = this.props.match.params.id;
+    if (studentid) {
+      this.setState({ stId: studentid });
+    }
+  }
+
+  handleSubmit = (courseid) => {
+    this.setState({ isLoading: true });
+    if (!this.state.score) {
+      this.setState({
+        info: "Please fill all required field",
+        isLoading: false,
+      });
+    } else if (this.state.password !== this.state.password1) {
+      this.setState({ info: `password not match`, isLoading: false });
+    } else {
+      let sid = this.state.stId;
+
+      fetch(`/student/registered/course/${sid}/${courseid}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.state.name,
+
+          email: this.state.email,
+          password: this.state.password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res.message);
+          this.setState({ isLoading: false });
+          console.log(res);
+          if ((res.MESSAGE = "Created" && res.status == 201)) {
+            this.props.history.push("/lsignin");
+          } else {
+            this.setState({ info: res.message });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({ isLoading: false });
+        });
+
+      //console.log(this.state)
+    }
+  };
   render() {
-    const { id, name, userAvater } = this.state;
+    const { stId, name, userAvater } = this.state;
     const ImagesSTyle = {
       width: "90%",
       height: "150px",
@@ -76,45 +131,32 @@ export default class Student extends Component {
                         <table id="example1" className="table">
                           <thead className="btn-cancel">
                             <tr>
-                              <th>Profile</th>
-                              <th>Full Name</th>
-                              <th>Email</th>
-                              <th>department</th>
-                              <th>Level</th>
-
+                              <th>S/n</th>
+                              <th>Course title</th>
+                              <th>Course Code</th>
+                              <th>Course Unit</th>
+                              <th>Coures ID</th>
+                              <th>Score</th>
+                              <th>Grade</th>
                               <th className="text-center">Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {this.state.students
-                              ? this.state.students.map((student, inde) => {
-                                  const {
-                                    department,
-                                    email,
-                                    fname,
-                                    level,
-                                    lname,
-                                    _id,
-                                  } = student;
+                            {this.state.courses
+                              ? this.state.courses.map((course, inde) => {
+                                  const { title, unit, code, _id, score, grade } = course;
                                   return (
                                     <tr>
-                                      <td>
-                                        <img
-                                          src="../asset/img/profile.png"
-                                          width={40}
-                                        />
-                                      </td>
-                                      <td>{fname + " " + lname}</td>
-                                      <td>{email}</td>
-                                      <td>{department}</td>
-                                      <td>{level}</td>
-
+                                      <td> {inde + 1}</td>
+                                      <td>{code}</td>
+                                      <td>{title}</td>
+                                      <td>{unit}</td>
+                                      <td>{_id}</td>
+                                      <td>{score == null ? "pending" : score}</td>
+                                      <td>{grade == null ? "pending" : grade}</td>
                                       <td className="text-center">
-                                        {/* <Link to={`/projectD/${_id}`}> <i className="fa fa-user-edit" />
-     <button className="btn btn-sm btn-success">Detail</button>
-     </Link> */}
                                         <Link
-                                          to={`/student/${_id}`}
+                                          to={`/student/${stId}/${_id}`}
                                           className="btn btn-sm btn-success"
                                         >
                                           <i className="fa fa-user-edit" />{" "}
@@ -181,7 +223,7 @@ export default class Student extends Component {
                                     src="../asset/img/member.png"
                                     width={40}
                                   />{" "}
-                                  Member Information
+                                  Add Score
                                 </h5>
                               </div>
                               <div className="row">
@@ -193,108 +235,24 @@ export default class Student extends Component {
                                     <input
                                       type="text"
                                       className="form-control"
-                                      placeholder="First Name"
+                                      placeholder="add score"
                                     />
                                   </div>
                                 </div>
-                                <div className="col-md-4">
-                                  <div className="form-group">
-                                    <label className="float-left">
-                                      Middle Name
-                                    </label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Middle Name"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-4">
-                                  <div className="form-group">
-                                    <label className="float-left">
-                                      Last Name
-                                    </label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Last Name"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
-                                    <label className="float-left">Age</label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Age"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
-                                    <label className="float-left">Gender</label>
-                                    <select className="form-control">
-                                      <option>Male</option>
-                                      <option>Female</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
-                                    <label className="float-left">
-                                      Contact
-                                    </label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Contact"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
-                                    <label className="float-left">Email</label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Email"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-12">
-                                  <div className="form-group">
-                                    <label className="float-left">
-                                      Address
-                                    </label>
-                                    <textarea
-                                      className="form-control"
-                                      defaultValue={""}
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-12">
-                                  <div className="form-group">
-                                    <label className="float-left">
-                                      Choose Profile
-                                    </label>
-                                    <div className="input-group">
-                                      <div className="custom-file">
-                                        <input
-                                          type="file"
-                                          className="custom-file-input"
-                                          id="exampleInputFile"
-                                        />
-                                        <label
-                                          className="custom-file-label"
-                                          htmlFor="exampleInputFile"
-                                        >
-                                          Choose file
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+
+                                {this.state.info === "" ||
+                                this.state.info === undefined ? (
+                                  <p
+                                    className="alert alert-warning"
+                                    style={{ display: "none" }}
+                                  >
+                                    {this.state.info}
+                                  </p>
+                                ) : (
+                                  <p className="alert alert-danger">
+                                    {this.state.info}
+                                  </p>
+                                )}
                               </div>
                             </div>
                           </div>

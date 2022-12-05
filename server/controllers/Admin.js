@@ -1,18 +1,22 @@
 const User = require("../models/Admin");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 class AuthController {
     static async CreateNewAccount(req, res) {
         try {
-            const { name, email, password } = req.body;
+            const {
+                name,
+                email,
+                password
+            } = req.body;
             if (!name || !email || !password) {
                 return res.json({
                     status: 400,
                     message: "NOT_ALLOWED"
                 });
-            }
-            else {
+            } else {
                 const hashedPassword = bcrypt.hashSync(password, 10);
                 const newUser = await User.create(req.body);
                 newUser.password = hashedPassword;
@@ -33,44 +37,50 @@ class AuthController {
 
     static async LoginAdminAccount(req, res) {
         try {
-            const { email, password } = req.body;
-            if(!email || !password) {
+            const {
+                email,
+                password
+            } = req.body;
+            if (!email || !password) {
                 return res.json({
                     status: 400,
                     message: "NOT_ALLOWED"
                 });
-            }
-            else {
-                const user = await User.findOne({ email: email });
-                
-                if(!user) {
+            } else {
+                const user = await User.findOne({
+                    email: email
+                });
+
+                if (!user) {
                     return res.json({
                         status: 401,
                         message: "UNAUTHORIZED_OR_BAD_CREDENTIALS1"
                     });
-                }
-                else {
+                } else {
                     const IsCorrectPassword = bcrypt.compareSync(password, user.password);
 
-                    if(!IsCorrectPassword) {
+                    if (!IsCorrectPassword) {
                         return res.json({
                             status: 401,
                             message: "UNAUTHORIZED_OR_BAD_CREDENTIALS2"
                         })
-                    }
-                    else {
-                        const accessToken = jwt.sign(
-                            {
+                    } else {
+                        const accessToken = jwt.sign({
                                 id: user._id,
                                 isAdmin: user.isAdmin,
                             },
-                            process.env.JWT_SEC,
-                            { expiresIn: "3d" }
+                            config.adminSecret, {
+                                expiresIn: "3d"
+                            }
                         );
                         return res.json({
                             status: 200,
                             message: "AUTHORIZED",
-                            accessToken: accessToken
+                            accessToken: accessToken,
+                            id: user._id,
+                            isAdmin: user.isAdmin,
+                            auth: true
+
                         });
                     }
                 }

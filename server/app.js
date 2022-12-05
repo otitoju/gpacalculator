@@ -25,10 +25,10 @@ app.listen(PORT, () => {
 
 mongoose.connect('mongodb+srv://projectversity:kadri4God222.@cluster0.gxoa4ty.mongodb.net/?retryWrites=true&w=majority').then(() => {
 
-        console.log("mongodb connected online")
-    })
-    .catch((err) => {
-        console.log('errorrr')
-        console.log(err)
+    console.log("mongodb connected online")
+})
+.catch((err) => {
+    console.log('errorrr')
+    console.log(err)
 
-    })
+})

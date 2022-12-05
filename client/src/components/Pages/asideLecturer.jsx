@@ -2,42 +2,67 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../assets/style.css";
 
+import { userProfile } from "../apidata/api";
 export default class Aside extends Component {
   constructor() {
     super();
     this.state = {
       id: "",
       name: "",
-      userAvater:''
+      userAvater: "",
     };
   }
 
+  async componentWillMount() {}
   render() {
-    
-
     return (
       <div>
- <div className="wrapper">
-          <nav className="main-header navbar navbar-expand navbar-light" style={{backgroundColor: 'rgb(27,100,107)'}}>
+        <div className="wrapper">
+          <nav
+            className="main-header navbar navbar-expand navbar-light"
+            style={{ backgroundColor: "rgb(27,100,107)" }}
+          >
             {/* Left navbar links */}
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" data-widget="pushmenu" href="#" role="button"><i className="fas fa-bars" /></a>
+                <a
+                  className="nav-link"
+                  data-widget="pushmenu"
+                  href="#"
+                  role="button"
+                >
+                  <i className="fas fa-bars" />
+                </a>
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a className="nav-link" href="#" role="button">
-                  <img src="../asset/img/avatar.png" className="img-circle" alt="User Image" style={{marginTop: '-8px'}} width={40} />
+                  <img
+                    src="../asset/img/avatar.png"
+                    className="img-circle"
+                    alt="User Image"
+                    style={{ marginTop: "-8px" }}
+                    width={40}
+                  />
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" data-widget="fullscreen" href="#" role="button">
+                <a
+                  className="nav-link"
+                  data-widget="fullscreen"
+                  href="#"
+                  role="button"
+                >
                   <i className="fas fa-expand-arrows-alt" />
                 </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" data-widget="fullscreen" to="/">
+                <Link title="Sign out"
+                  className="nav-link"
+                  data-widget="fullscreen"
+                  to="/"
+                >
                   <i className="fas fa-sign-out-alt" />
                 </Link>
               </li>
@@ -50,70 +75,55 @@ export default class Aside extends Component {
             </a>
             <div className="sidebar">
               <nav className="mt-2">
-                <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul
+                  className="nav nav-pills nav-sidebar flex-column"
+                  data-widget="treeview"
+                  role="menu"
+                  data-accordion="false"
+                >
                   <li className="nav-item">
-                    <Link to="/dashboard" className="nav-link">
+                    <Link to="/ldashboard" className="nav-link">
                       <img src="../asset/img/dashboard.png" width={30} />
-                      <p>
-                        Dashboard
-                      </p>
-                    </Link>
-                  </li>
-                  
-                 
-                  
-                  <li className="nav-item">
-                    <Link to="course" className="nav-link">
-                      <img src="../asset/img/subject.png" width={30} />
-                      <p>
-                        Courses
-                      </p>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/profile" className="nav-link">
-                      <img src="../asset/img/student.png" width={30} />
-                      <p>
-                        Profile
-                      </p>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="score" className="nav-link">
-                      <img src="../asset/img/score.png" width={30} />
-                      <p>
-                        Score
-                      </p>
+                      <p>Dashboard</p>
                     </Link>
                   </li>
 
-                   <li className="nav-item">
-                    <Link to="/criteria" className="nav-link">
+                  <li className="nav-item">
+                    <Link to="#" className="nav-link">
                       <img src="../asset/img/criteria.png" width={30} />
-                      <p>
-                        Notification
-                      </p>
+                      <p>notification</p>
                     </Link>
                   </li>
-
+                  <li className="nav-item">
+                    <Link to="lcourse" className="nav-link">
+                      <img src="../asset/img/subject.png" width={30} />
+                      <p>Courses</p>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="student" className="nav-link">
+                      <img src="../asset/img/student.png" width={30} />
+                      <p>Student</p>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="#" className="nav-link">
+                      <img src="../asset/img/score.png" width={30} />
+                      <p>Score</p>
+                    </Link>
+                  </li>
                   <li className="nav-item">
                     <Link to="/" className="nav-link">
-                    <i className="fas fa-sign-out-alt" />
-                      <p>
-                        Log out
-                      </p>
-                      {/* <i className="fas fa-sign-out-alt" /> */}
+                      {/* <img src="../asset/img/report.png" width={30} /> */}
+                      <i className="fas fa-sign-out-alt"  width={30} />
+                      <p>Logout</p>
                     </Link>
-                    
                   </li>
                 </ul>
               </nav>
             </div>
           </aside>
-
         </div>
-        
-
       </div>
     );
   }
